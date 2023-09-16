@@ -1,6 +1,13 @@
 pipeline {
     agent any
     stages{
+        stage("Cleaning repo"){
+            steps{
+                echo "Cleaning repo"
+                sh "rm -rf *"
+                sh "rm -rf /var/www/html/"
+            }
+        }
         stage("Clone Code"){
             steps {
                 echo "Cloning the code"
