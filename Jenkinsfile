@@ -18,7 +18,8 @@ pipeline {
             steps {
                 echo "Building the image"
                 sh "cd Todolist/"
-                sh "docker build -t my-note-app ."
+                sh "docker build -t my-image -f Dockerfile ."
+             
             }
         }
         stage("Deploy"){
