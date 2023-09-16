@@ -18,6 +18,10 @@ pipeline {
             steps {
                 echo "Building the image"
                 sh "cd Todolist/"
+        dir(path: "Todolist/") {
+            sh "docker build -t my-image -f Dockerfile ."
+        }
+                
                 sh "docker build -t my-image -f Dockerfile ."
              
             }
