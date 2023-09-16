@@ -17,7 +17,7 @@ pipeline {
         stage("Build"){
             steps {
                 echo "Building the image"
-                sh "cd /home/ubuntu/Todolist"
+                sh "cd Todolist/"
                 sh "docker build -t my-note-app ."
             }
         }
