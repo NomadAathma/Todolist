@@ -4,8 +4,8 @@ pipeline {
         stage("Cleaning repo"){
             steps{
                 echo "Cleaning repo"
-                sh "sudo rm -rf *"
-                sh "sudo rm -rf /var/www/html/"
+                sh "rm -rf *"
+                sh "rm -rf /var/www/html/"
             }
         }
         stage("Clone Code"){
