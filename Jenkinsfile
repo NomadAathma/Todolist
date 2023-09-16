@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh 'rm -r *'
                 // Remove files in /var/www/html (adjust this path as needed)
-                sh 'rm -rf /var/www/html/*'
+         
             }
         }
 
