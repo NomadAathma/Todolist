@@ -21,10 +21,9 @@ pipeline {
         dir(path: "Todolist/") {
             sh "docker build -t my-image -f Dockerfile ."
         }
-                
-                sh "docker build -t my-image -f Dockerfile ."
+            }                
              
-            }
+            
         }
         stage("Deploy"){
             steps {
