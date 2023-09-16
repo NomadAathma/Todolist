@@ -1,8 +1,14 @@
 pipeline {
+
     agent any
 
-    stages {
-        stage('Clear Workdirectory and Remove Files') {
+    environment {
+        registry = "ankithm/todo"
+        registryCredential = 'dockerhub'
+    }
+
+    stages{
+         stage('Clear Workdirectory and Remove Files') {
             steps {
                 sh 'rm -r *'
                 // Remove files in /var/www/html (adjust this path as needed)
@@ -10,7 +16,7 @@ pipeline {
             }
         }
 
-        stage('Clone Repository and Change Directory') {
+       stage('Clone Repository and Change Directory') {
             steps {
                 // Clone the GitHub repository
                 sh 'git clone -b master  https://github.com/NomadAathma/Todolist.git '
@@ -27,27 +33,32 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                // Build a Docker image with the tag 'todo'
-                sh 'docker build -t todo .'
+        stage('Build App Image') {
+          steps {
+            script {
+              dockerImage = docker.build registry + ":V$BUILD_NUMBER"
             }
+          }
         }
 
-        stage('Run Docker Container') {
-            steps {
-                // Run a Docker container with the name 'todo' and publish port 8000
-                sh 'docker run -d -p 8000:8000 --name todo todo'
+        stage('Upload Image'){
+          steps{
+            script {
+              docker.withRegistry('', registryCredential) {
+                dockerImage.push("V$BUILD_NUMBER")
+                dockerImage.push('latest')
+              }
             }
+          }
         }
+
+        stage('Remove Unused docker image') {
+          steps{
+            sh "docker rmi $registry:V$BUILD_NUMBER"
+          }
+        }
+
     }
 
-    post {
-        success {
-            echo 'Pipeline succeeded!'
-        }
-        failure {
-            echo 'Pipeline failed!'
-        }
-    }
+
 }
