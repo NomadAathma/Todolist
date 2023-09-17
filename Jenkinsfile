@@ -5,7 +5,6 @@ pipeline {
         stage('Clear Workdirectory and Remove Files') {
             steps {
                 sh 'rm -rf Todolist'
-                sh 'rm -rf /var/www/html/'
             }
         } 
         stage('Git Clone And Change Directory') {
