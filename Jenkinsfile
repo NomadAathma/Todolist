@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Clear Workdirectory and Remove Files') {
             steps {
-            sh 'cd /home/ubuntu/django-notes-app/' 
+            sh 'git clone -b master https://github.com/NomadAathma/Todolist.git'
+                sh 'cd Todolist'
             sh'docker build -t todoapp .'
             sh 'docker run -d -p 8000:8000 todoapp'
             }
