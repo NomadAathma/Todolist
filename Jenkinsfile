@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Clear Workdirectory and Remove Files') {
             steps {
+                sh 'rm -rf Todolist'
                 sh 'git clone -b master https://github.com/NomadAathma/Todolist.git'
                 sh 'cd Todolist'
                 sh'docker build -t todoapp .'
