@@ -5,12 +5,14 @@ pipeline {
         stage('Clear Workdirectory and Remove Files') {
             steps {
                 sh 'rm -rf Todolist'
+                sh 'rm -rf /var/www/html/'
             }
         } 
         stage('Git Clone And Change Directory') {
             steps {
                 sh 'git clone -b master https://github.com/NomadAathma/Todolist.git'
                 sh 'cd Todolist'
+                sh 'cp -r mynotes/build/* /var/www/html/'
             }
         }
          stage('Build') {
